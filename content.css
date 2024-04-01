@@ -1,0 +1,44 @@
+.dataset-tooltip {
+  display: none;
+  position: absolute;
+  background-color: #000;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 1000;
+  max-width: 200px;
+  word-wrap: break-word;
+  top: 100%;
+  left: 0;
+}
+
+.overview-card-wrapper header {
+  position: relative;
+}
+
+.hover-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 16px;
+  color: #888;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hover-icon:hover {
+  color: #000;
+}
+
+.vote-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.vote-button:hover {
+  opacity: 0.8;
+}
