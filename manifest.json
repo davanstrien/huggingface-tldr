@@ -7,6 +7,7 @@
         "activeTab",
         "storage"
     ],
+    "options_page": "settings.html",
     "host_permissions": [
         "https://huggingface.co/datasets/davanstrien/*"
     ],

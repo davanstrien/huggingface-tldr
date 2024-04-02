@@ -80,6 +80,7 @@ function fetchAndAddDescriptions() {
       console.error("Error fetching dataset descriptions:", error);
     });
 }
+
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("vote-button")) {
     const { vote } = event.target.dataset;
@@ -108,23 +109,31 @@ document.addEventListener("click", (event) => {
       userID: userID, // Include the user ID in the payload
     };
 
-    fetch("https://davanstrien-dataset-tldr.hf.space/vote", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Vote submitted successfully:", data);
-        // Store the rated dataset in localStorage
-        localStorage.setItem(datasetName, true);
-        console.log("Rated dataset stored in localStorage.");
-      })
-      .catch((error) => {
-        console.error("Error submitting vote:", error);
-      });
+    chrome.storage.sync.get("token", (data) => {
+      const { token } = data;
+      if (token) {
+        fetch("https://davanstrien-dataset-tldr.hf.space/vote", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Vote submitted successfully:", data);
+            // Store the rated dataset in localStorage
+            localStorage.setItem(datasetName, true);
+            console.log("Rated dataset stored in localStorage.");
+          })
+          .catch((error) => {
+            console.error("Error submitting vote:", error);
+          });
+      } else {
+        console.error("Token not found in storage");
+      }
+    });
   }
 });
 
