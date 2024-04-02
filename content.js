@@ -1,3 +1,19 @@
+/**
+ * Generates a unique user ID and stores it in the localStorage.
+ * If a user ID already exists, retrieves and returns it.
+ * @returns {string} The generated or existing user ID.
+ */
+function generateUserId() {
+  const existingUserId = localStorage.getItem("userId");
+  if (existingUserId) {
+    return existingUserId;
+  } else {
+    const newUserId = Math.random().toString(36).substring(2, 15);
+    localStorage.setItem("userId", newUserId);
+    return newUserId;
+  }
+}
+
 function addDatasetDescription(descriptions, box) {
   const datasetName = box.querySelector("h4").textContent.trim();
   const description = descriptions[datasetName];
@@ -64,7 +80,6 @@ function fetchAndAddDescriptions() {
       console.error("Error fetching dataset descriptions:", error);
     });
 }
-
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("vote-button")) {
     const { vote } = event.target.dataset;
@@ -76,12 +91,24 @@ document.addEventListener("click", (event) => {
       return;
     }
 
+    // Get the dataset description
+    const descriptionElement = event.target
+      .closest(".overview-card-wrapper")
+      .querySelector(".tl-dr-description");
+    const description = descriptionElement
+      ? descriptionElement.textContent.trim()
+      : "";
+
+    const userID = generateUserId(); // Generate or retrieve the user ID
+
     const payload = {
       dataset: datasetName,
+      description: description,
       vote: parseInt(vote),
+      userID: userID, // Include the user ID in the payload
     };
 
-    fetch("http://localhost:8000/vote", {
+    fetch("https://davanstrien-dataset-tldr.hf.space/vote", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -104,7 +131,7 @@ document.addEventListener("click", (event) => {
 const observer = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     if (mutation.type === "childList") {
-      const addedNodes = mutation.addedNodes;
+      const { addedNodes } = mutation;
       addedNodes.forEach((node) => {
         if (
           node.nodeType === Node.ELEMENT_NODE &&

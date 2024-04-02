@@ -8,8 +8,7 @@
         "storage"
     ],
     "host_permissions": [
-        "https://huggingface.co/datasets/davanstrien/*",
-        "http://localhost:8000/*"
+        "https://huggingface.co/datasets/davanstrien/*"
     ],
     "content_scripts": [
         {
