@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveButton = document.getElementById("save");
 
   // Load the saved token from storage
-  chrome.storage.sync.get("token", (data) => {
+  chrome.storage.local.get("token", (data) => {
     if (data.token) {
       tokenInput.value = data.token;
     }
@@ -12,8 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Save the token when the Save button is clicked
   saveButton.addEventListener("click", () => {
     const token = tokenInput.value;
-    chrome.storage.sync.set({ token: token }, () => {
+    chrome.storage.local.set({ token: token }, () => {
       console.log("Token saved");
+      alert("Token saved successfully!");
     });
   });
 });
