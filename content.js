@@ -86,12 +86,6 @@ document.addEventListener("click", (event) => {
     const { vote } = event.target.dataset;
     const datasetName = event.target.dataset.dataset;
 
-    // Check if the user has already rated this dataset
-    if (localStorage.getItem(datasetName)) {
-      console.log("You have already rated this dataset.");
-      return;
-    }
-
     // Get the dataset description
     const descriptionElement = event.target
       .closest(".overview-card-wrapper")
@@ -109,8 +103,10 @@ document.addEventListener("click", (event) => {
       userID: userID, // Include the user ID in the payload
     };
 
-    chrome.storage.sync.get("token", (data) => {
+    // Retrieve the token from chrome.storage.local
+    chrome.storage.local.get("token", (data) => {
       const { token } = data;
+      console.log("Retrieved token:", token); // Log the token value
       if (token) {
         fetch("https://davanstrien-dataset-tldr.hf.space/vote", {
           method: "POST",
@@ -123,9 +119,6 @@ document.addEventListener("click", (event) => {
           .then((response) => response.json())
           .then((data) => {
             console.log("Vote submitted successfully:", data);
-            // Store the rated dataset in localStorage
-            localStorage.setItem(datasetName, true);
-            console.log("Rated dataset stored in localStorage.");
           })
           .catch((error) => {
             console.error("Error submitting vote:", error);
