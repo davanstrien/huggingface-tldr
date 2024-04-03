@@ -1,4 +1,4 @@
-# Hugging Face tl;dr Chrome Extension
+# Hugging Face tl;dr 
 
 <p style="text-align: center;"><i>An experimental Chrome extension that provides tl;dr summaries for datasets on the Hugging Face Hub!</i></p>
 
