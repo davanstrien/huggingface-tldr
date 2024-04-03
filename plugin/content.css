@@ -42,3 +42,11 @@
 .vote-button:hover {
   opacity: 0.8;
 }
+
+.vote-button.voted {
+  opacity: 1;
+}
+
+.vote-button:not(.voted) {
+  opacity: 0.5;
+}
