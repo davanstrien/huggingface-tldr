@@ -106,11 +106,30 @@ function fetchAndAddDescriptions() {
       });
   }
 }
+let previousVotes = {};
 
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("vote-button") && isMainDatasetsPage()) {
     const { vote } = event.target.dataset;
     const datasetName = event.target.dataset.dataset;
+
+    // Check if the user has already voted for the same option
+    if (previousVotes[datasetName] === parseInt(vote)) {
+      // Display an "already voted" message
+      const alreadyVotedMessage = document.createElement("div");
+      alreadyVotedMessage.textContent = "Already voted!";
+      alreadyVotedMessage.style.marginTop = "5px";
+      alreadyVotedMessage.style.color = "#ff0000";
+      alreadyVotedMessage.style.fontSize = "12px";
+      event.target.parentNode.appendChild(alreadyVotedMessage);
+
+      // Remove the "already voted" message after 2 seconds
+      setTimeout(() => {
+        alreadyVotedMessage.remove();
+      }, 2000);
+
+      return; // Exit the event listener
+    }
 
     const overviewCardWrapper = event.target.closest(".overview-card-wrapper");
     if (overviewCardWrapper) {
@@ -147,6 +166,34 @@ document.addEventListener("click", (event) => {
               .then((response) => response.json())
               .then((data) => {
                 console.log("Vote submitted successfully:", data);
+
+                // Update the previous vote for the dataset
+                previousVotes[datasetName] = parseInt(vote);
+
+                // Set the opacity of all vote buttons to 0.5
+                const voteButtons =
+                  overviewCardWrapper.querySelectorAll(".vote-button");
+                voteButtons.forEach((button) => {
+                  button.style.opacity = "0.5";
+                  button.classList.remove("voted");
+                });
+
+                // Set the opacity of the current voted button to 1 and add the "voted" class
+                event.target.style.opacity = "1";
+                event.target.classList.add("voted");
+
+                // Display a success message
+                const successMessage = document.createElement("div");
+                successMessage.textContent = "Vote registered!";
+                successMessage.style.marginTop = "5px";
+                successMessage.style.color = "#4caf50";
+                successMessage.style.fontSize = "12px";
+                overviewCardWrapper.appendChild(successMessage);
+
+                // Remove the success message after 2 seconds
+                setTimeout(() => {
+                  successMessage.remove();
+                }, 2000);
               })
               .catch((error) => {
                 console.error("Error submitting vote:", error);
