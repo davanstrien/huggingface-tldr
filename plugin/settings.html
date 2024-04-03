@@ -5,12 +5,14 @@
   </head>
   <body>
     <h1>Extension Settings</h1>
-    <label for="token">Token:</label>
-    <input type="text" id="token" name="Read only HF token." />
     <p>
-      You can get a token from
+      In order to submit feedback on the ratings you need to provide a read only
+      Hugging Face Hub token. <br />You can get a read only token from
       <a href="https://huggingface.co/settings/tokens">this page</a>.
     </p>
+    <label for="token">Token:</label>
+    <input type="text" id="token" name="Read only HF token." />
+
     <button id="save">Save</button>
     <script src="settings.js"></script>
   </body>
