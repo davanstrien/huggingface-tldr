@@ -82,7 +82,9 @@ function addDatasetDescription(descriptions, box) {
 }
 
 function isMainDatasetsPage() {
-  return window.location.href === "https://huggingface.co/datasets";
+  const url = window.location.href;
+  const mainPagePattern = /^https:\/\/huggingface\.co\/datasets(?:\?.*)?$/;
+  return mainPagePattern.test(url);
 }
 
 function fetchAndAddDescriptions() {
