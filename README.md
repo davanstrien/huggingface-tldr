@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <i>An experimental Chrome extension that provides tl;dr summaries for datasets on the Hugging Face Hub!</i>
+  <i>Experimental tl;dr summaries for datasets on the Hugging Face Hub!</i>
 </p>
 
 The Hugging Face tl;dr Chrome extension enhances your browsing experience on the Hugging Face Hub by providing concise tl;dr summaries for datasets. With this extension, you can quickly grasp the key points of a dataset when navigating through the Hugging Face Hub, making it easier to identify relevant datasets for your machine learning projects.
@@ -53,7 +53,6 @@ To enable voting functionality and provide feedback on the tl;dr summaries, you 
 2. Select "Options" from the context menu.
 3. In the settings page, enter your Hugging Face token in the provided input field.
 4. Click on the "Save" button to store the token.
-
 
 
 ![](assets/settings.png)
