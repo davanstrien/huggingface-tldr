@@ -15,9 +15,19 @@ function generateUserId() {
 }
 
 function isTokenAvailable(callback) {
-  chrome.runtime.sendMessage({ action: "getToken" }, (response) => {
-    callback(!!response.token);
-  });
+  try {
+    chrome.runtime.sendMessage({ action: "getToken" }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error("Error in sendMessage:", chrome.runtime.lastError);
+        callback(false);
+      } else {
+        callback(!!response.token);
+      }
+    });
+  } catch (error) {
+    console.error("Error in isTokenAvailable:", error);
+    callback(false);
+  }
 }
 
 function addDatasetDescription(descriptions, box) {
@@ -128,7 +138,7 @@ document.addEventListener("click", (event) => {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                Authorization: `${token}`,
               },
               body: JSON.stringify(payload),
             })
