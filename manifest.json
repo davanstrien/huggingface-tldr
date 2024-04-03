@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Dataset Description",
+    "name": "Hugging Face tl;dr",
     "version": "1.0",
-    "description": "Adds dataset descriptions under each dataset box on the webpage.",
+    "description": "Adds tl;dr descriptions to datasets on the Hugging Face Hub.",
     "permissions": [
         "activeTab",
         "storage"
@@ -23,5 +23,8 @@
                 "content.css"
             ]
         }
-    ]
+    ],
+    "background": {
+        "service_worker": "background.js"
+    }
 }
