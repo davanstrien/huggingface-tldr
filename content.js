@@ -13,7 +13,11 @@ function generateUserId() {
     return newUserId;
   }
 }
-
+function isTokenAvailable(callback) {
+  chrome.runtime.sendMessage({ action: "getToken" }, (response) => {
+    callback(!!response.token);
+  });
+}
 function addDatasetDescription(descriptions, box) {
   const datasetName = box.querySelector("h4").textContent.trim();
   const description = descriptions[datasetName];
@@ -85,12 +89,6 @@ document.addEventListener("click", (event) => {
     const { vote } = event.target.dataset;
     const datasetName = event.target.dataset.dataset;
 
-    // Check if the user has already rated this dataset
-    if (localStorage.getItem(datasetName)) {
-      console.log("You have already rated this dataset.");
-      return;
-    }
-
     // Get the dataset description
     const descriptionElement = event.target
       .closest(".overview-card-wrapper")
@@ -108,23 +106,36 @@ document.addEventListener("click", (event) => {
       userID: userID, // Include the user ID in the payload
     };
 
-    fetch("https://davanstrien-dataset-tldr.hf.space/vote", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Vote submitted successfully:", data);
-        // Store the rated dataset in localStorage
-        localStorage.setItem(datasetName, true);
-        console.log("Rated dataset stored in localStorage.");
-      })
-      .catch((error) => {
-        console.error("Error submitting vote:", error);
-      });
+    // Check if the token is available
+    isTokenAvailable((tokenAvailable) => {
+      if (tokenAvailable) {
+        // Retrieve the token from the background script
+        chrome.runtime.sendMessage({ action: "getToken" }, (response) => {
+          const { token } = response;
+          // Token is available, proceed with vote submission
+          fetch("https://davanstrien-dataset-tldr.hf.space/vote", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Vote submitted successfully:", data);
+            })
+            .catch((error) => {
+              console.error("Error submitting vote:", error);
+            });
+        });
+      } else {
+        // Token is missing, display an alert or message to the user
+        alert(
+          "Please provide the token in the extension settings to submit your vote."
+        );
+      }
+    });
   }
 });
 
