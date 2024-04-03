@@ -14,11 +14,15 @@ The Hugging Face tl;dr Chrome extension enhances your browsing experience on the
   <img src="assets/screenshot.png" alt="Screenshot of the descriptions shown by the Chrome Plugin" width="600px" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
 </p>
 
+
 ## ✨ Features
 
 - 🤖 Automatically fetches and displays tl;dr summaries for datasets on the Hugging Face Hub
 - 📜 Summaries are added as a compact section below each dataset card, making them easily noticeable
 - 👍 Provide feedback on the usefulness of the summaries through a simple rating system
+
+https://github.com/davanstrien/huggingface-tldr/assets/8995957/8afbb064-c534-41cc-b30f-b6d39aae2cb1
+
 
 ## 🚀 Getting Started
 
