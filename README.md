@@ -14,6 +14,7 @@ The Hugging Face tl;dr Chrome extension enhances your browsing experience on the
   <img src="assets/screenshot.png" alt="Screenshot of the descriptions shown by the Chrome Plugin" width="600px" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
 </p>
 
+**Disclaimer**: *This extension is an experimental project aimed at gauging the usefulness of tl;dr summaries for datasets on the Hugging Face Hub. The summaries are generated using the [mistralai/Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) model, and the quality of the summaries may vary. If you encounter any issues or have suggestions for improvements, please open an issue before submitting a pull request.*
 
 ## ✨ Features
 
