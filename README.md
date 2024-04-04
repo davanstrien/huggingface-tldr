@@ -21,7 +21,10 @@ The Hugging Face tl;dr Chrome extension enhances your browsing experience on the
 - 📜 Summaries are added as a compact section below each dataset card, making them easily noticeable
 - 👍 Provide feedback on the usefulness of the summaries through a simple rating system
 
-https://github.com/davanstrien/huggingface-tldr/assets/8995957/8afbb064-c534-41cc-b30f-b6d39aae2cb1
+
+
+https://github.com/davanstrien/huggingface-tldr/assets/8995957/9f30886e-0917-4c42-b7c7-b940172eae4e
+
 
 
 ## 🚀 Getting Started
